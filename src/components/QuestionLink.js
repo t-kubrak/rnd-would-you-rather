@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {Link} from "react-router-dom";
 
-class Question extends Component {
+class QuestionLink extends Component {
     render() {
       const { question, user } = this.props
   
@@ -11,10 +11,9 @@ class Question extends Component {
       }
   
       const { id, optionOne} = question
-      
   
       return (
-        <li key={id}>
+        <li>
           <img className='avatar' src={user.avatarURL}/>
           <p>{user.name} asks:</p>
           <p>Would you rather</p>
@@ -36,4 +35,4 @@ class Question extends Component {
     }
   }
   
-  export default connect(mapStateToProps)(Question) 
+  export default connect(mapStateToProps)(QuestionLink)
