@@ -1,25 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Link} from "react-router-dom";
+import QuestionUnanswered from "./QuestionUnanswered";
+import QuestionAnswered from "./QuestionAnswered";
 
 class QuestionPage extends Component {
     render() {
-        const { question, user } = this.props
+        const { question, user, isAnsweredQuestion } = this.props
 
         if (question === null) {
             return <p>This question doesn't exist</p>
         }
 
-        const { id, optionOne, optionTwo } = question
-
+        const { id } = question
 
         return (
-            <li key={id}>
-                <img className='avatar' src={user.avatarURL}/>
-                <p>{user.name} asks:</p>
-                <p>Would you rather</p>
-                <p>{optionOne.text} or {optionTwo.text}</p>
-            </li>
+            isAnsweredQuestion ? <QuestionAnswered id={id}/> : <QuestionUnanswered id={id}/>
         )
     }
 }
@@ -27,12 +22,12 @@ class QuestionPage extends Component {
 function mapStateToProps ({authedUser, users, questions}, props) {
     const { id } = props.match.params
     const question = questions[id]
-    const user = users[question.author]
+    const isAnsweredQuestion = Object.keys(authedUser.answers).includes(id)
 
     return {
         authedUser,
         question: question || null,
-        user: user || null
+        isAnsweredQuestion
     }
 }
 
