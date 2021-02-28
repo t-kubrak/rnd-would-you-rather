@@ -1,7 +1,7 @@
-import { _getQuestions, _getUsers } from '../utils/_DATA'
-import { receiveUsers } from './users'
-import { receiveQuestions } from './questions'
-import { setAuthedUser } from './authedUser'
+import {_getQuestions, _getUsers, _saveQuestionAnswer} from '../utils/_DATA'
+import {receiveUsers, updateUserAnswers} from './users'
+import {receiveQuestions, updateQuestionVotes} from './questions'
+import {setAuthedUser} from './authedUser'
 
 const AUTHED_ID = 'sarahedo'
 
@@ -14,4 +14,15 @@ export function handleInitialData () {
         dispatch(setAuthedUser(users[AUTHED_ID]))
       })
   }
-} 
+}
+
+export function handleQuestionAnswer (question, answer, user) {
+    return (dispatch, getState) => {
+        _saveQuestionAnswer({
+            authedUser: user.id, qid: question.id, answer
+        }).then(() => {
+            dispatch(updateQuestionVotes(question, answer, user))
+            dispatch(updateUserAnswers(question, answer, user))
+        })
+    }
+}
