@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Link} from "react-router-dom";
 
 class Question extends Component {
     render() {
@@ -18,7 +19,7 @@ class Question extends Component {
           <p>{user.name} asks:</p>
           <p>Would you rather</p>
           <p>{optionOne.text} or ...</p>
-          <a href={`/questions/${id}`}>View poll</a>
+          <Link to={`/questions/${id}`}>View poll</Link>
         </li>
       )
     }
