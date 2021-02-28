@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {handleQuestionAnswer} from "../actions/shared";
+import {getAuthedUserProfile} from "../selectors";
 
 class QuestionUnanswered extends Component {
     render() {
@@ -22,12 +24,14 @@ class QuestionUnanswered extends Component {
     }
 }
 
-function mapStateToProps ({authedUser, users, questions}, {id}) {
+function mapStateToProps (state, {id}) {
+    const {authedUser, users, questions} = state;
+    const authedUserProfile = getAuthedUserProfile(state);
     const question = questions[id]
     const user = users[question.author]
 
     return {
-        authedUser,
+        authedUserProfile,
         question: question || null,
         user: user || null
     }

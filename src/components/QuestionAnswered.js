@@ -1,35 +1,37 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {getAuthedUserProfile} from "../selectors";
 
 class QuestionAnswered extends Component {
     render() {
-        const { question, user, authedUser } = this.props
+        const { question, user, authedUserProfile } = this.props
 
         if (question === null) {
             return <p>This question doesn't exist</p>
         }
 
         const { id, optionOne, optionTwo } = question
-        console.log(user.answers[id]);
+
         return (
             <li key={id}>
                 <img className='avatar' src={user.avatarURL}/>
                 <p>Asked by {user.name}</p>
                 <p>Results</p>
-                {authedUser.answers[id] === 'optionOne'
-                    ? <p>{optionOne.text} - Your choice</p>
-                    : <p>{optionTwo.text}</p>}
+                <p>{optionOne.text} {authedUserProfile.answers[id] === 'optionOne' ? '- Your choice'  : ''}</p>
+                <p>{optionTwo.text} {authedUserProfile.answers[id] === 'optionTwo' ? '- Your choice'  : ''}</p>
             </li>
         )
     }
 }
 
-function mapStateToProps ({authedUser, users, questions}, {id}) {
+function mapStateToProps (state, {id}) {
+    const {authedUser, users, questions} = state;
+    const authedUserProfile = getAuthedUserProfile(state);
     const question = questions[id]
     const user = users[question.author]
 
     return {
-        authedUser,
+        authedUserProfile,
         question: question || null,
         user: user || null
     }

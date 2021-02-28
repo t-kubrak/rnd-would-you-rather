@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import QuestionUnanswered from "./QuestionUnanswered";
 import QuestionAnswered from "./QuestionAnswered";
+import {getAuthedUserProfile} from "../selectors";
 
 class QuestionPage extends Component {
     render() {
-        const { question, user, isAnsweredQuestion } = this.props
+        const { question, isAnsweredQuestion } = this.props
 
         if (question === null) {
             return <p>This question doesn't exist</p>
@@ -19,13 +20,13 @@ class QuestionPage extends Component {
     }
 }
 
-function mapStateToProps ({authedUser, users, questions}, props) {
+function mapStateToProps (state, props) {
     const { id } = props.match.params
-    const question = questions[id]
-    const isAnsweredQuestion = Object.keys(authedUser.answers).includes(id)
+    const question = state.questions[id]
+    const authedUserProfile = getAuthedUserProfile(state);
+    const isAnsweredQuestion = Object.keys(authedUserProfile.answers).includes(id)
 
     return {
-        authedUser,
         question: question || null,
         isAnsweredQuestion
     }
