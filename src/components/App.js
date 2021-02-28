@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from "../actions/shared";
 import Questions from "./Questions";
+import Header from "./Header";
 
 class App extends Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class App extends Component {
   render() {
     return (
       <main>
+          <Header/>
           {this.props.loading === true
           ? null
           : <Questions />}
