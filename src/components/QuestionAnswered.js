@@ -14,7 +14,7 @@ class QuestionAnswered extends Component {
 
         return (
             <li key={id}>
-                <img className='avatar' src={user.avatarURL}/>
+                <img className='avatar' src={user.avatarURL} alt={`${user.name} avatar`}/>
                 <p>Asked by {user.name}</p>
                 <p>Results:</p>
                 <ol>
@@ -33,8 +33,6 @@ class QuestionAnswered extends Component {
                         <p>{optionTwo.percentage}%</p>
                     </li>
                 </ol>
-
-
             </li>
         )
     }

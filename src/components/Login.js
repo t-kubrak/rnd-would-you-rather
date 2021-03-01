@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {BrowserRouter as Router, Route, Redirect, Switch, withRouter} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser';
 
 class Login extends Component{

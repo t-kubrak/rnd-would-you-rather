@@ -14,7 +14,7 @@ class QuestionLink extends Component {
   
       return (
         <li>
-          <img className='avatar' src={user.avatarURL}/>
+          <img className='avatar' src={user.avatarURL} alt={`${user.name} avatar`}/>
           <p>{user.name} asks:</p>
           <p>Would you rather</p>
           <p>{optionOne.text} or ...</p>

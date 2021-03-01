@@ -27,7 +27,7 @@ class QuestionUnanswered extends Component {
 
         return (
             <li key={id}>
-                <img className='avatar' src={user.avatarURL}/>
+                <img className='avatar' src={user.avatarURL} alt={`${user.name} avatar`}/>
                 <p>{user.name} asks:</p>
                 <p>Would you rather...</p>
                 <form onSubmit={this.handleSubmit}>
@@ -46,7 +46,7 @@ class QuestionUnanswered extends Component {
 }
 
 function mapStateToProps (state, {id}) {
-    const {authedUser, users, questions} = state;
+    const {users, questions} = state;
     const authedUserProfile = getAuthedUserProfile(state);
     const question = questions[id]
     const user = users[question.author]
