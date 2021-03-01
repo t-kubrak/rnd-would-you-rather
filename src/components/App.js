@@ -9,6 +9,7 @@ import Login from "./Login";
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import NotFound from "./NotFound";
 import NewQuestion from "./NewQuestion";
+import Leaderboard from "./Leaderboard";
 
 class App extends Component {
     componentDidMount() {
@@ -30,6 +31,7 @@ class App extends Component {
                             <ProtectedRoute exact path='/' component={Questions}/>
                             <ProtectedRoute path='/questions/:id' component={QuestionPage}/>
                             <ProtectedRoute path='/add' component={NewQuestion}/>
+                            <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
                             <Route path='/login' component={Login}/>
                             <ProtectedRoute path="*" component={NotFound}/>
                         </Switch>
