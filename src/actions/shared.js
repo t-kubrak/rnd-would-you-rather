@@ -32,7 +32,7 @@ export function handleQuestionAnswer (question, answer, user) {
 
 export function handleQuestionCreate(optionOneText, optionTwoText, author) {
     return (dispatch) => {
-        _saveQuestion({optionOneText, optionTwoText, author})
+        return _saveQuestion({optionOneText, optionTwoText, author})
             .then((question) => {
                 dispatch(saveQuestion(question))
                 dispatch(saveUserQuestion(question, author))

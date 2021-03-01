@@ -14,11 +14,11 @@ class NewQuestion extends Component {
         e.preventDefault()
         const {dispatch, authedUser} = this.props
         dispatch(handleQuestionCreate(this.state.optionOne, this.state.optionTwo, authedUser))
-
-        this.setState(() => ({
-            text: '',
-            toHome: true,
-        }))
+            .then(
+                this.setState(() => ({
+                    toHome: true,
+                }))
+            )
     }
 
     handleChange = (event) => {
