@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import { NavLink } from 'react-router-dom'
+import {setAuthedUser} from '../actions/authedUser'
 
 class Header extends Component {
     handleSignOut = () => {
-        // TODO
+        this.props.dispatch(setAuthedUser(null))
     }
 
     render() {
@@ -25,7 +26,7 @@ class Header extends Component {
                 </ul>
                 {authedUser
                     ? <button onClick={this.handleSignOut}>Sign out</button>
-                    : <NavLink to='/sign-in'>Leaderboard</NavLink>}
+                    : <NavLink to='/login'>Login</NavLink>}
             </nav>
         )
     }

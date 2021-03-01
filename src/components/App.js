@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import {handleInitialData} from "../actions/shared";
 import Questions from "./Questions";
 import Header from "./Header";
 import QuestionPage from "./QuestionPage";
-import Signin from "./Signin";
+import Login from "./Login";
+import ProtectedRoute from "./Auth/ProtectedRoute";
+import NotFound from "./NotFound";
 
 class App extends Component {
     componentDidMount() {
@@ -13,33 +15,31 @@ class App extends Component {
     }
 
     render() {
+        const {loading} = this.props
+
+        if (loading) {
+            return ('Loading...')
+        }
+
         return (
-            <Router>
+            <Router>    
                 <Header/>
-                {/*TODO: prevent from accessing if not signed*/}
-                {this.props.authRequired ?
-                    <Redirect to='/sign-in' />
-                    : ''
-                }
-                <main>
-                    {this.props.loading === true
-                        ? null
-                        : <div>
-                            <Route path='/' exact component={Questions}/>
-                            <Route path='/questions/:id' component={QuestionPage}/>
-                            <Route path='/sign-in' component={Signin}/>
-                        </div>
-                    }
-                </main>
+                    <main>
+                         <Switch>
+                            <ProtectedRoute exact path='/' component={Questions}/>
+                            <ProtectedRoute path='/questions/:id' component={QuestionPage}/>
+                            <Route path='/login' component={Login}/>
+                            <ProtectedRoute path="*" component={NotFound}/>
+                        </Switch>
+                    </main>
             </Router>
         )
     };
 }
 
-function mapStateToProps({authedUser}) {
+function mapStateToProps({loading}) {
     return {
-        loading: authedUser === null,
-        authRequired: !authedUser,
+        loading
     }
 }
 
