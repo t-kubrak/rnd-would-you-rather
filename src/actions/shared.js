@@ -1,6 +1,6 @@
-import {_getQuestions, _getUsers, _saveQuestionAnswer} from '../utils/_DATA'
-import {receiveUsers, updateUserAnswers} from './users'
-import {receiveQuestions, updateQuestionVotes} from './questions'
+import {_getQuestions, _getUsers, _saveQuestion, _saveQuestionAnswer} from '../utils/_DATA'
+import {receiveUsers, saveUserQuestion, updateUserAnswers} from './users'
+import {receiveQuestions, saveQuestion, updateQuestionVotes} from './questions'
 import {setAuthedUser} from './authedUser'
 import { setLoading } from './loading'
 
@@ -20,12 +20,22 @@ export function handleInitialData () {
 }
 
 export function handleQuestionAnswer (question, answer, user) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         _saveQuestionAnswer({
             authedUser: user.id, qid: question.id, answer
         }).then(() => {
             dispatch(updateQuestionVotes(question, answer, user))
             dispatch(updateUserAnswers(question, answer, user))
         })
+    }
+}
+
+export function handleQuestionCreate(optionOneText, optionTwoText, author) {
+    return (dispatch) => {
+        _saveQuestion({optionOneText, optionTwoText, author})
+            .then((question) => {
+                dispatch(saveQuestion(question))
+                dispatch(saveUserQuestion(question, author))
+            })
     }
 }
