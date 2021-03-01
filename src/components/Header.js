@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import { NavLink } from 'react-router-dom'
 import {setAuthedUser} from '../actions/authedUser'
+import {getAuthedUserProfile} from "../selectors";
 
 class Header extends Component {
     handleSignOut = () => {
@@ -9,7 +10,7 @@ class Header extends Component {
     }
 
     render() {
-        const {authedUser} = this.props;
+        const {authedUser, authedUserProfile} = this.props;
 
         return (
             <nav>
@@ -24,17 +25,28 @@ class Header extends Component {
                         <NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink>
                     </li>
                 </ul>
-                {authedUser
-                    ? <button onClick={this.handleSignOut}>Sign out</button>
-                    : <NavLink to='/login'>Login</NavLink>}
+                <div>
+                    {authedUser ?
+                        <div>
+                            <button onClick={this.handleSignOut}>Sign out</button>
+                            <p className="bold">Hi {authedUserProfile.name}!</p>
+                        </div>
+                        : <NavLink to='/login'>Login</NavLink>}
+
+                </div>
+
             </nav>
         )
     }
 }
 
-function mapStateToProps ({authedUser}) {
+function mapStateToProps (state) {
+    const {authedUser} = state;
+    const authedUserProfile = getAuthedUserProfile(state);
+
     return {
-        authedUser
+        authedUser,
+        authedUserProfile
     }
 }
 

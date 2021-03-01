@@ -1,3 +1,3 @@
 export function getAuthedUserProfile(state) {
-    return state.users[state.authedUser];
+    return state.authedUser ? state.users[state.authedUser] : null;
 }
