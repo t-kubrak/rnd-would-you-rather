@@ -29,13 +29,14 @@ class QuestionUnanswered extends Component {
             <li key={id}>
                 <img className='avatar' src={user.avatarURL}/>
                 <p>{user.name} asks:</p>
-                <p>Would you rather</p>
+                <p>Would you rather...</p>
                 <form onSubmit={this.handleSubmit}>
                     <input required type="radio" name='option' id='optionOne' value='optionOne' onChange={this.handleInputChange}/>
                     <label htmlFor="optionOne">{optionOne.text}</label>
                     <br/>
                     <input required type="radio" name='option' id='optionTwo' value='optionTwo' onChange={this.handleInputChange}/>
                     <label htmlFor="optionTwo">{optionTwo.text}</label>
+                    <br/>
                     <br/>
                     <input type="submit" value='Submit'/>
                 </form>

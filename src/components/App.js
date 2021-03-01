@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import {handleInitialData} from "../actions/shared";
@@ -18,24 +18,25 @@ class App extends Component {
 
     render() {
         const {loading} = this.props
-
-        if (loading) {
-            return ('Loading...')
-        }
-
         return (
-            <Router>    
-                <Header/>
-                    <main>
-                         <Switch>
-                            <ProtectedRoute exact path='/' component={Questions}/>
-                            <ProtectedRoute path='/questions/:id' component={QuestionPage}/>
-                            <ProtectedRoute path='/add' component={NewQuestion}/>
-                            <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
-                            <Route path='/login' component={Login}/>
-                            <ProtectedRoute path="*" component={NotFound}/>
-                        </Switch>
-                    </main>
+            <Router>
+                <div className="container-main">
+                    {loading ? <p>Loading...</p> : (
+                        <Fragment>
+                            <Header/>
+                            <main>
+                                <Switch>
+                                    <ProtectedRoute exact path='/' component={Questions}/>
+                                    <ProtectedRoute path='/questions/:id' component={QuestionPage}/>
+                                    <ProtectedRoute path='/add' component={NewQuestion}/>
+                                    <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
+                                    <Route path='/login' component={Login}/>
+                                    <ProtectedRoute path="*" component={NotFound}/>
+                                </Switch>
+                            </main>
+                        </Fragment>
+                    )}
+                </div>
             </Router>
         )
     };

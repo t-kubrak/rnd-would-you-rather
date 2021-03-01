@@ -5,3 +5,15 @@
 .bold {
   font-weight: bold;
 }
+
+.questions-list {
+  display: flex;
+  flex: 1 50%;
+}
+
+@media (min-width: 1024px) {
+  .container-main {
+    width: 480px;
+    margin: 0 auto;
+  }
+}
