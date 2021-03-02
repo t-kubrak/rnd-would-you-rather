@@ -3,28 +3,43 @@ import {connect} from "react-redux";
 import { NavLink } from 'react-router-dom'
 import {setAuthedUser} from '../actions/authedUser'
 import {getAuthedUserProfile} from "../selectors";
+import {Menu} from "semantic-ui-react";
 
 class Header extends Component {
+    state = { activeItem: 'home' }
+
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
     handleSignOut = () => {
         this.props.dispatch(setAuthedUser(null))
     }
 
     render() {
         const {authedUser, authedUserProfile} = this.props;
+        const { activeItem } = this.state
 
         return (
             <nav>
-                <ul>
-                    <li>
-                        <NavLink to='/' exact activeClassName='active'>Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/add' activeClassName='active'>New Question</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink>
-                    </li>
-                </ul>
+                <Menu color='teal' inverted widths={3}>
+                    <Menu.Item
+                        name='home'
+                        active={activeItem === 'home'}
+                        onClick={this.handleItemClick}
+                        as={NavLink} to='/' exact
+                    />
+                    <Menu.Item
+                        name='add'
+                        active={activeItem === 'add'}
+                        onClick={this.handleItemClick}
+                        as={NavLink} to='/add'
+                    />
+                    <Menu.Item
+                        name='leaderboard'
+                        active={activeItem === 'leaderboard'}
+                        onClick={this.handleItemClick}
+                        as={NavLink} to='/leaderboard'
+                    />
+                </Menu>
                 <div>
                     {authedUser ?
                         <div>
@@ -34,7 +49,6 @@ class Header extends Component {
                         : <NavLink to='/login'>Login</NavLink>}
 
                 </div>
-
             </nav>
         )
     }
