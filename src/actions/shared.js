@@ -1,10 +1,7 @@
 import {_getQuestions, _getUsers, _saveQuestion, _saveQuestionAnswer} from '../utils/_DATA'
 import {receiveUsers, saveUserQuestion, updateUserAnswers} from './users'
 import {receiveQuestions, saveQuestion, updateQuestionVotes} from './questions'
-import {setAuthedUser} from './authedUser'
 import { setLoading } from './loading'
-
-const AUTHED_ID = 'sarahedo'
 
 export function handleInitialData () {
   return (dispatch) => {
@@ -13,7 +10,6 @@ export function handleInitialData () {
       .then(([users, questions]) => {
         dispatch(receiveUsers(users))
         dispatch(receiveQuestions(questions))
-        dispatch(setAuthedUser(AUTHED_ID))
         dispatch(setLoading(false))
       })
   }
